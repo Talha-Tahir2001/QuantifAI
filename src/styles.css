@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Mono&display=swap');
+
 @import "tailwindcss";
+@plugin "daisyui"{
+  themes: caramellatte --default, coffee --prefers-dark;
+  root: ":root";
+  include: ;
+  exclude: ;
+  prefix: ;
+  logs: true;
+}
