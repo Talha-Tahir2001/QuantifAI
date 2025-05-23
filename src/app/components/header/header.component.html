@@ -1,0 +1,83 @@
+<!-- <header
+  [class]="
+    'fixed top-0 w-full z-50 transition-all duration-300 ' +
+    (scrolled ? 'navbar-blur py-2' : 'bg-transparent py-4')
+  "
+> -->
+  <nav
+    class="navbar bg-base-200 shadow-sm"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div class="navbar-start">
+      <div class="dropdown">
+        <button
+          type="button"
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost lg:hidden"
+          aria-label="Open menu"
+          title="Open menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </button>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        >
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/detect">Detect</a></li>
+          <li>
+            <a>More</a>
+            <ul class="p-2">
+              <li><a>About </a></li>
+              <li><a>Github</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- <a class="btn btn-ghost text-xl">daisyUI</a> -->
+      <a routerLink="/" class="flex items-center gap-2">
+        <span
+          class="flex items-center justify-center w-10 h-10 rounded-full bg-accent-content text-neutral text-xl font-bold"
+          >Q</span
+        >
+        <span class="text-xl font-semibold hidden sm:inline-block">
+          <span class="text-base-content/70">Quantif</span>
+          <span class="text-base-content">AI</span>
+        </span>
+      </a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/">Detect</a></li>
+        <li>
+          <details>
+            <summary>More</summary>
+            <ul class="p-2">
+              <li><a>About</a></li>
+              <li><a>Github</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-end pr-6">
+      <button (click)="onThemeToggle()()" class="btn"> {{ isDarkMode() ? "❤️‍🩹 Healing" : "💔 Damaged" }}</button>
+    </div>
+  </nav>
+<!-- </header> -->
