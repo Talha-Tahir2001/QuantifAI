@@ -1,7 +1,19 @@
 <footer class="bg-base-200 text-base-content py-8">
-    <div class="container mx-auto px-6 text-center">
-      <p class="text-lg">Made with ❤️ by Talha</p>
-      <p class="mt-2 text-sm opacity-75">Where semicolons meet Cupid’s arrows</p>
-      <!-- <p class="mt-2 text-sm opacity-75">© {{year | date: 'yyyy'}} All rights reserved</p> -->
-    </div>
-  </footer>
+  <div class="container mx-auto px-6 text-center">
+    <p class="text-lg">Made with ❤️ by Talha</p>
+    <p class="mt-2 text-sm opacity-75">
+      Unlock the power of sight and see the world in a whole new way
+    </p>
+    <p class="mt-2 text-sm opacity-75">
+      © {{ Year | date : "yyyy" }} All rights reserved
+    </p>
+  </div>
+  <div class="container mx-auto px-6 mt-4 flex justify-center gap-4 ">
+    <a href="https://github.com/Talha-Tahir2001" title="GitHub" aria-label="GitHub">
+      <lucide-angular [img]="GithubIcon" [size]="22"></lucide-angular>      
+    </a>
+    <a href="https://www.linkedin.com/in/talha-tahir1/" title="LinkedIn" aria-label="LinkedIn">
+      <lucide-angular [img]="LinkedinIcon" [size]="22"></lucide-angular>      
+    </a>
+  </div>
+</footer>
