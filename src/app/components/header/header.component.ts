@@ -1,14 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { LucideAngularModule, HouseIcon, InfoIcon, GithubIcon, ScanIcon } from 'lucide-angular';
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, RouterModule],
+  imports: [ RouterModule, LucideAngularModule],
   templateUrl: './header.component.html',
   styles: ``,
 })
 export class HeaderComponent {
+
+  readonly HouseIcon = HouseIcon;
+  readonly InfoIcon = InfoIcon;
+  readonly GithubIcon = GithubIcon;
+  readonly ScanIcon = ScanIcon;
+
   scrolled = false;
   mobileMenuOpen = false;
 
