@@ -10,11 +10,14 @@ import { FooterComponent } from '../../components/footer/footer.component';
 // import { NgxTypedJsModule } from 'ngx-typed-js';
 import { NgxTypedWriterModule } from 'ngx-typed-writer';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FeaturesComponent } from '../../components/features/features.component';
+import { LucideAngularModule, ArrowRightIcon } from 'lucide-angular';
 
 // type NgxTypedJsModuleType = typeof import('ngx-typed-js').NgxTypedJsModule;
 @Component({
   selector: 'app-home',
-  imports: [FooterComponent, NgxTypedWriterModule],
+  imports: [FooterComponent, NgxTypedWriterModule, RouterLink, FeaturesComponent, LucideAngularModule],
   templateUrl: './home.component.html',
   styles: ``,
 })
@@ -22,6 +25,7 @@ export class HomeComponent {
   isBrowser = signal(false);
   // ngxTypedJsModule = signal<NgxTypedJsModuleType | null>(null);
 
+  readonly ArrowRightIcon = ArrowRightIcon;
   platformID = inject(PLATFORM_ID);
   constructor() {
 
