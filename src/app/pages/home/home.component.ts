@@ -13,11 +13,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FeaturesComponent } from '../../components/features/features.component';
 import { LucideAngularModule, ArrowRightIcon } from 'lucide-angular';
+import { HowItWorksComponent } from "../../components/how-it-works/how-it-works.component";
 
 // type NgxTypedJsModuleType = typeof import('ngx-typed-js').NgxTypedJsModule;
 @Component({
   selector: 'app-home',
-  imports: [FooterComponent, NgxTypedWriterModule, RouterLink, FeaturesComponent, LucideAngularModule],
+  imports: [FooterComponent, NgxTypedWriterModule, RouterLink, FeaturesComponent, LucideAngularModule, HowItWorksComponent],
   templateUrl: './home.component.html',
   styles: ``,
 })
