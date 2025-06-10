@@ -1,6 +1,4 @@
 import {
-  afterNextRender,
-  afterRender,
   Component,
   inject,
   PLATFORM_ID,
