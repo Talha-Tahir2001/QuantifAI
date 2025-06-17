@@ -1,10 +1,4 @@
-<div
-  [attr.data-theme]="isDarkMode() ? 'coffee' : 'caramellatte'"
-  class="min-h-screen bg-base-100"
->
-  <app-header
-    [isDarkMode]="isDarkMode()"
-    [onThemeToggle]="toggleTheme.bind(this)"
-  />
+<div class="min-h-screen bg-base-100">
+  <app-header />
   <router-outlet />
 </div>
