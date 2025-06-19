@@ -40,7 +40,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/quantif-ai",
-            "index": "src/index.html",
+            "index": "src/indexFile.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
