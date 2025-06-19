@@ -8,10 +8,13 @@ import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import cookieParser from 'cookie-parser';
+
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
+app.use(cookieParser());
 const angularApp = new AngularNodeAppEngine();
 
 /**
@@ -34,8 +37,40 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+  })
 );
+
+app.use('/**', (req, res, next) => {
+  angularApp
+    .handle(req)
+    .then(async (response) => {
+      if (!response) return next();
+
+      const theme = req.cookies['theme'] ?? 'fastape'; // Fallback theme
+
+      let html = '';
+      if (response.body) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+        while (!done) {
+          const { value, done: doneReading } = await reader.read();
+          done = doneReading;
+          if (value) html += decoder.decode(value, { stream: !done });
+        }
+      }
+
+      // Inject theme attribute
+      html = html.replace('<html', `<html data-theme="${theme}"`);
+
+      res.status(response.status ?? 200);
+      for (const [name, value] of Object.entries(response.headers ?? {})) {
+        res.setHeader(name, value as string);
+      }
+      res.send(html);
+    })
+    .catch(next);
+});
 
 /**
  * Handle all other requests by rendering the Angular application.
@@ -44,7 +79,7 @@ app.use('/**', (req, res, next) => {
   angularApp
     .handle(req)
     .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
+      response ? writeResponseToNodeResponse(response, res) : next()
     )
     .catch(next);
 });
