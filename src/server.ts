@@ -13,7 +13,7 @@ import cookieParser from 'cookie-parser';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
-const app = express();
+export const app = express();
 app.use(cookieParser());
 const angularApp = new AngularNodeAppEngine();
 
