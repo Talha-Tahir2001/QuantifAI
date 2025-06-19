@@ -1,0 +1,416 @@
+<div class="min-h-screen flex flex-col bg-base-100 text-base-content">
+  <main class="flex-1 pt-20">
+    <section class="py-16 relative overflow-hidden">
+      <div class="container-custom relative z-10">
+        <div class="text-center mb-12">
+          <h1 class="mb-4 text-4xl font-bold text-primary">Object Detection</h1>
+          <p class="text-lg max-w-2xl mx-auto text-base-content/70">
+            Upload an image to detect objects using our advanced AI technology.
+          </p>
+        </div>
+
+        <div
+          class="max-w-3xl mx-auto bg-base-200 p-8 rounded-lg border card-border border-base-300 shadow-lg"
+        >
+          <div class="tabs tabs-boxed bg-base-300 mb-8">
+            <button type="button" class="tab tab-active">Upload Image</button>
+            <div class="tooltip">
+              <div class="tooltip-content">
+                <div
+                  class="animate-bounce text-orange-400 -rotate-10 text-xl font-black"
+                >
+                  Soon!
+                </div>
+              </div>
+              <button disabled type="button" class="tab">URL</button>
+            </div>
+            <div class="tooltip">
+              <div class="tooltip-content">
+                <div
+                  class="animate-bounce text-orange-400 -rotate-10 text-xl font-black"
+                >
+                  Soon!
+                </div>
+              </div>
+              <button disabled type="button" class="tab">Camera</button>
+            </div>
+          </div>
+
+          <div class="mb-8">
+            <div
+              class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer"
+              (click)="fileInput.click()"
+              [class.border-primary]="previewUrl"
+            >
+              <input
+                #fileInput
+                type="file"
+                accept=".jpg,.jpeg,.png,.webp"
+                hidden
+                (change)="handleFileUpload($event)"
+              />
+
+              <div class="flex flex-col items-center">
+                @if (previewUrl) {
+                <div class="mb-4 relative">
+                  <img
+                    [src]="previewUrl"
+                    alt="Preview"
+                    class="rounded-lg max-h-60 mx-auto"
+                  />
+
+                  @if (isLoading()) {
+                  <div
+                    class="absolute inset-0 bg-black/50 flex items-center justify-center"
+                  >
+                    <span
+                      class="loading loading-spinner loading-lg text-primary"
+                    ></span>
+                  </div>
+                  }
+
+                  <!-- @if (result() && settings.showBoundingBoxes) {
+                      @for (obj of result()!.objects; track $index) {
+                        @let bbox = denormalizeBbox(obj.boundingBox);
+                        <div class="absolute border-2 border-red-500"
+                             [style.left.px]="bbox[0]"
+                             [style.top.px]="bbox[1]"
+                             [style.width.px]="bbox[2]"
+                             [style.height.px]="bbox[3]">
+                          @if (settings.showConfidenceScores) {
+                            <div class="absolute -top-6 left-0 bg-red-500 text-white px-2 py-1 rounded text-xs">
+                              {{ obj.label }} ({{ obj.confidence | percent:'1.0-2' }})
+                            </div>
+                          }
+                        </div>
+                      }
+                    } -->
+                </div>
+                } @if (!previewUrl) {
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-12 h-12 text-base-content/40 mb-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+                  />
+                </svg>
+                }
+
+                <p class="text-lg font-medium text-base-content mb-2">
+                  {{
+                    previewUrl
+                      ? "Change image"
+                      : "Drag and drop your image here"
+                  }}
+                </p>
+
+                @if (!previewUrl) {
+                <p class="text-base-content/50 mb-4">or</p>
+                }
+
+                <button class="btn btn-primary">
+                  {{ previewUrl ? "Change Image" : "Browse Files" }}
+                </button>
+                <p class="text-xs text-base-content/50 mt-4">
+                  Supports: JPG, PNG, WEBP (max 10MB)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <!-- <button type="button"
+              class="btn btn-primary flex-1"
+              [disabled]="isLoading() || !previewUrl"
+              (click)="
+                file && geminiService.detectObjectsFromFile(file, settings)
+              "
+            >
+              @if (isLoading()) {
+              <span class="loading loading-spinner"></span>
+              } @else {
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5 mr-2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+              }
+              {{ isLoading() ? "Processing..." : "Detect Objects" }}
+            </button> -->
+            @if (isLoading()) {
+            <div class="flex-1 flex flex-col items-center justify-center gap-2">
+              <span class="loading loading-spinner w-8 h-8 text-primary">
+                <!-- <span class="text-secondary text-md">Analyzing Image...</span>             -->
+              </span>
+            </div>
+            }
+            <button
+              type="button"
+              class="btn btn-outline flex-1"
+              (click)="resetDetection()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5 mr-2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                />
+              </svg>
+              Reset
+            </button>
+          </div>
+
+          <!-- Error message -->
+          @if (error()) {
+          <div class="mt-6 alert alert-error">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>{{ error() }}</span>
+          </div>
+          }
+        </div>
+
+        <div class="mt-16 space-y-8">
+          <!-- Detection Settings Section -->
+          <div class="tooltip w-full relative">
+            <div
+              class="tooltip-content absolute -top-10 left-1/2 transform -translate-x-1/2 z-10"
+            >
+              <div
+                class="animate-bounce text-orange-400 -rotate-10 text-2xl font-black"
+              >
+                Soon!
+              </div>
+            </div>
+
+            <div class="opacity-50 pointer-events-none w-full">
+              <div
+                class="p-6 bg-base-200 rounded-lg border card-border border-base-300"
+              >
+                <h3 class="text-xl font-semibold mb-4 text-base-content">
+                  Detection Settings
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">Detection Confidence:</span>
+                        <span class="label-text-alt mr-1"
+                          >{{ settings.confidenceThreshold }}%</span
+                        >
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        [value]="settings.confidenceThreshold"
+                        class="range range-primary"
+                        (input)="
+                          settings.confidenceThreshold = $any(
+                            $event.target
+                          ).value
+                        "
+                      />
+                    </label>
+                  </div>
+
+                  <div>
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">Maximum Detections:</span>
+                        <span class="label-text-alt mr-1">{{
+                          settings.maxDetections
+                        }}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="1"
+                        max="50"
+                        [value]="settings.maxDetections"
+                        class="range range-primary"
+                        (input)="
+                          settings.maxDetections = $any($event.target).value
+                        "
+                      />
+                    </label>
+                  </div>
+
+                  <div class="md:col-span-2">
+                    <label class="form-control w-full">
+                      <div class="label">
+                        <span class="label-text">Model Selection</span>
+                      </div>
+                      <select
+                        class="select select-bordered w-full cursor-pointer"
+                        [(ngModel)]="settings.model"
+                      >
+                        <option value="gemini-1.5-flash-latest">
+                          Standard (Balanced)
+                        </option>
+                        <option value="gemini-1.5-pro-latest">
+                          High Accuracy (Slower)
+                        </option>
+                        <option value="gemini-1.0-pro">
+                          Fast (Lower accuracy)
+                        </option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Options Section -->
+          <div class="tooltip w-full relative">
+            <div
+              class="tooltip-content absolute -top-10 left-1/2 transform -translate-x-1/2 z-10"
+            >
+              <div
+                class="animate-bounce text-orange-400 -rotate-10 text-2xl font-black"
+              >
+                Soon!
+              </div>
+            </div>
+
+            <div class="opacity-50 pointer-events-none w-full">
+              <div
+                class="p-6 bg-base-200 rounded-lg border card-border border-base-300"
+              >
+                <h3 class="text-xl font-semibold mb-4 text-base-content">
+                  Advanced Options
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start">
+                      <input
+                        type="checkbox"
+                        class="checkbox checkbox-primary mr-3"
+                        [(ngModel)]="settings.autoEnhance"
+                      />
+                      <span class="label-text">Auto-enhance image</span>
+                    </label>
+                  </div>
+
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start">
+                      <input
+                        type="checkbox"
+                        class="checkbox checkbox-primary mr-3"
+                        [(ngModel)]="settings.showBoundingBoxes"
+                      />
+                      <span class="label-text">Show bounding boxes</span>
+                    </label>
+                  </div>
+
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start">
+                      <input
+                        type="checkbox"
+                        class="checkbox checkbox-primary mr-3"
+                        [(ngModel)]="settings.showConfidenceScores"
+                      />
+                      <span class="label-text">Show confidence scores</span>
+                    </label>
+                  </div>
+
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start">
+                      <input
+                        type="checkbox"
+                        class="checkbox checkbox-primary mr-3"
+                        [(ngModel)]="settings.showAnnotations"
+                      />
+                      <span class="label-text">Generate annotations</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results section -->
+          @if (result() && !isLoading()) {
+          <div
+            class="p-6 bg-base-200 rounded-lg border card-border border-base-300"
+          >
+            <h3 class="text-xl font-semibold mb-4 text-base-content">
+              Detection Results
+            </h3>
+
+            <div class="overflow-x-auto">
+              <table class="table table-zebra">
+                <thead>
+                  <tr>
+                    <th>Object</th>
+                    <th>Confidence</th>
+                    <th>Position</th>
+                    <th>Size</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (obj of result()!.objects; track $index) {
+                  <tr>
+                    <td class="font-bold">{{ obj.label }}</td>
+                    <td>{{ obj.confidence | percent : "1.0-2" }}</td>
+                    <td>
+                      ({{ obj.boundingBox.x | number : "1.0-3" }},
+                      {{ obj.boundingBox.y | number : "1.0-3" }})
+                    </td>
+                    <td>
+                      {{ obj.boundingBox.width | number : "1.0-3" }} x
+                      {{ obj.boundingBox.height | number : "1.0-3" }}
+                    </td>
+                  </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <!-- <div class="mt-4">
+                <h4 class="font-medium mb-2">Summary:</h4>
+                <p>{{ result()?.processedImage }}</p>
+              </div> -->
+          </div>
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
