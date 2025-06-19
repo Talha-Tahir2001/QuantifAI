@@ -1,11 +1,11 @@
 <section class="container mx-auto px-6 py-26 text-center bg-base-100">
   <div class="max-w-4xl mx-auto">
     <h1
-      class="text-5xl md:text-6xl font-bold text-base-content/70 mb-6 animate-fade-in-down"
+      class="text-5xl md:text-6xl font-bold text-base-content mb-6 animate-fade-in-down"
     >
       Advanced Object Detection with<br />
       @if (isBrowser()) { @defer (on idle) {
-      <ngx-typed-writer
+      <ngx-typed-writer class="text-primary"
         [strings]="['AI Magic', 'AI Power', 'AI Intelligence']"
         [cursorChar]="'|'"
         [showCursor]="true"
@@ -26,31 +26,14 @@
     <div class="flex justify-center space-x-4">
       <button
         type="button"
-        class="btn btn-neutral text-neutral-content px-8 py-4 text-lg"
+        class="btn btn-primary text-primary-content px-8 py-4 text-lg"
       >
         <a class="flex items-center gap-2" routerLink="/detect">
           <span>Try Now</span>
           <lucide-angular [img]="ArrowRightIcon" [size]="22"></lucide-angular>
         </a>
       </button>
-      <!-- <button
-        type="button"
-        class="btn btn-secondary bg-pink-500 hover:bg-pink-600 border-0 text-white px-8 py-4 text-lg hidden md:inline-flex lg:inline-flex  lg:w-auto"
-      >
-        <a routerLink="/about" routerLinkActive="active"> ❤️‍🔥 Learn More </a>
-      </button> -->
     </div>
-    <!-- <div class="mt-12 animate-fade-in-down">
-      <svg
-        class="w-24 h-24 mx-auto text-pink-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-        />
-      </svg>
-    </div> -->
   </div>
 </section>
 <h1 class="text-4xl font-bold text-center mb-12 text-base-content">
