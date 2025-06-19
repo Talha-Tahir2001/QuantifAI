@@ -1,11 +1,7 @@
-<!-- <header
-  [class]="
-    'fixed top-0 w-full z-50 transition-all duration-300 ' +
-    (scrolled ? 'navbar-blur py-2' : 'bg-transparent py-4')
-  "
-> -->
 <nav
-  class="navbar bg-base-200 shadow-sm"
+  [class]="'sticky top-0 w-full z-50 transition-all duration-300 navbar bg-base-200 text-base-content shadow-sm' +
+    (scrolled ? ' navbar-blur' : 'bg-transparent')
+  "
   role="navigation"
   aria-label="Main navigation"
 >
@@ -15,7 +11,7 @@
         type="button"
         tabindex="0"
         role="button"
-        class="btn btn-ghost lg:hidden"
+        class="btn btn-ghost lg:hidden text-base-content"
         aria-label="Open menu"
         title="Open menu"
       >
@@ -36,44 +32,61 @@
       </button>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        class="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
         <li>
-          <a routerLink="/">
+          <a routerLink="/" class="text-base-content">
             <lucide-angular [img]="HouseIcon" [size]="22"></lucide-angular>
             Home
           </a>
         </li>
         <li>
-          <a routerLink="/detect">
+          <a routerLink="/detect" class="text-base-content">
             <lucide-angular [img]="ScanIcon" [size]="22"></lucide-angular>
             Detect
           </a>
         </li>
         <li>
-          <a>More</a>
-          <ul class="p-2">
+          <a class="text-base-content">More</a>
+          <ul class="p-2 bg-base-100 text-base-content">
             <li>
-              <a routerLink="/about">
+              <a routerLink="/about" class="text-base-content">
                 <lucide-angular [img]="InfoIcon" [size]="22"></lucide-angular>
                 About
               </a>
             </li>
             <li>
-              <a routerLink="/https://github.com/Talha-Tahir2001">
+              <a routerLink="/https://github.com/Talha-Tahir2001" class="text-base-content">
                 <lucide-angular [img]="GithubIcon" [size]="22"></lucide-angular>
                 Github
               </a>
             </li>
           </ul>
         </li>
+        <!-- <details >
+          <summary class="text-base-content">More</summary>
+          <ul class="p-2 bg-base-100 text-base-content">
+            <li>
+              <a routerLink="/about" class="text-base-content">
+                <lucide-angular [img]="InfoIcon" [size]="22"></lucide-angular>
+                About
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Talha-Tahir2001" class="text-base-content">
+                <lucide-angular [img]="GithubIcon" [size]="22"></lucide-angular>
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </details> -->
       </ul>
     </div>
     <!-- <a class="btn btn-ghost text-xl">daisyUI</a> -->
     <a routerLink="/" class="flex items-center gap-2">
       <span
         class="flex items-center justify-center w-10 h-10 rounded-full bg-accent text-accent-content text-xl font-bold"
-        >Q</span
+        ><img src="magnifier.png" alt="logo" srcset=""></span
       >
       <span class="text-xl font-semibold hidden sm:inline-block">
         <span class="text-base-content/70">Quantif</span>
@@ -82,31 +95,31 @@
     </a>
   </div>
   <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
+    <ul class="menu menu-horizontal px-1 bg-transparent text-base-content">
       <li>
-        <a routerLink="/">
+        <a routerLink="/" class="text-base-content">
           <lucide-angular [img]="HouseIcon" [size]="22"></lucide-angular>
           Home
         </a>
       </li>
       <li>
-        <a routerLink="/detect">
+        <a routerLink="/detect" class="text-base-content">
           <lucide-angular [img]="ScanIcon" [size]="22"></lucide-angular>
           Detect
         </a>
       </li>
       <li>
-        <details>
-          <summary>More</summary>
-          <ul class="p-2">
+        <details >
+          <summary class="text-base-content">More</summary>
+          <ul class="p-2 bg-base-100 text-base-content">
             <li>
-              <a routerLink="/about">
+              <a routerLink="/about" class="text-base-content">
                 <lucide-angular [img]="InfoIcon" [size]="22"></lucide-angular>
                 About
               </a>
             </li>
             <li>
-              <a href="https://github.com/Talha-Tahir2001">
+              <a href="https://github.com/Talha-Tahir2001" class="text-base-content">
                 <lucide-angular [img]="GithubIcon" [size]="22"></lucide-angular>
                 GitHub
               </a>
@@ -117,14 +130,12 @@
     </ul>
   </div>
   <div class="navbar-end pr-6">
-    <label class="swap swap-rotate" title="Toggle dark mode">
-      <!-- this hidden checkbox controls the state -->
+    <label class="swap swap-rotate" title="Toggle dark mode">     
       <input
-        (click)="onThemeToggle()()"
-        id="theme-controller"
+        [checked]="isDark()"
+        (change)="themeService.toggleTheme()"        
         type="checkbox"
         class="theme-controller"
-        value="coffee"
         title="Toggle dark mode"
       />
 
@@ -152,5 +163,5 @@
     </label>
   </div>
 </nav>
-<!-- </header> -->
-<!-- a [routerLink]="['/routePath']" routerLinkActive="router-link-active"  -->
+
+

@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostListener, input } from '@angular/core';
+import { Component, computed, HostListener, inject,  Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule, HouseIcon, InfoIcon, GithubIcon, ScanIcon } from 'lucide-angular';
+import { ThemeService } from '../../services/theme.service';
 @Component({
   selector: 'app-header',
   imports: [ RouterModule, LucideAngularModule],
@@ -26,7 +26,6 @@ export class HeaderComponent {
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
-
-  readonly isDarkMode = input<boolean>(false);
-  readonly onThemeToggle = input<() => void>(() => {});
+  themeService = inject(ThemeService);
+  isDark: Signal<boolean> = computed(() => this.themeService.theme() === 'fastape');
 }
