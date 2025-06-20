@@ -3,15 +3,11 @@
   "public": true,
   "name": "quantif-ai",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.js" }
-  ],
-  "builds": [
-    { "src": "index.js", "use": "@vercel/node" },
-    { "src": "dist/quantif-ai/browser/**", "use": "@vercel/static" }
+    { "source": "/(.*)", "destination": "/api" }
   ],
   "functions": {
-    "index.js": {
+    "api/index.js": {
       "includeFiles": "dist/quantif-ai/**"
     }
   }
-}
+} 
