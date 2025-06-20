@@ -2,12 +2,13 @@
   "version": 2,
   "public": true,
   "name": "quantif-ai",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api" }
-  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/quantif-ai/**"
+      "includeFiles": [
+        "dist/quantif-ai/server/**",
+        "dist/quantif-ai/browser/**"
+      ]
     }
   }
-} 
+}
