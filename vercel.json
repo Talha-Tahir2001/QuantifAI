@@ -2,13 +2,16 @@
   "version": 2,
   "public": true,
   "name": "quantif-ai",
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.js" }
+  ],
+  "builds": [
+    { "src": "index.js", "use": "@vercel/node" },
+    { "src": "dist/quantif-ai/browser/**", "use": "@vercel/static" }
+  ],
   "functions": {
-    "api/index.js": {
-      "includeFiles": [
-        "dist/quantif-ai/server/**",
-        "dist/quantif-ai/browser/**"
-      ]
+    "index.js": {
+      "includeFiles": "dist/quantif-ai/**"
     }
   }
 }
