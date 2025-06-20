@@ -30,4 +30,4 @@ writeFile(targetPath, envFile, (err) => {
         const checkSign = '\u{2705}';
         console.log(successColor, `${checkSign} Successfully generated environment.ts`);
     }
-});
+}); 
